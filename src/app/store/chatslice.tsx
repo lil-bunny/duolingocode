@@ -17,7 +17,7 @@ MessageState[],void,{rejectValue:string}
 >
 ('chat/loadMessageAsync',async(_,thunkAPI)=>{
     try {
-        const res = await axios.get('http://127.0.0.1:8000/load_data/amit'); // your backend API
+        const res = await axios.get('https://10bd-150-129-64-107.ngrok-free.app/load_data/amit'); // your backend API
         console.log("res.data",res.data)
         return res.data; // should be an array of messages
       } catch (err: unknown) {
@@ -37,7 +37,7 @@ MessageState,MessageState,
             uid: 'amit',
             message: message.parts,
           })
-        const response = await axios.post('http://127.0.0.1:8000/chat', {
+        const response = await axios.post('https://10bd-150-129-64-107.ngrok-free.app/chat', {
             uid: 'amit',
             message: message.parts,
           }, {
