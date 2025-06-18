@@ -20,8 +20,9 @@ MessageState[],void,{rejectValue:string}
         const res = await axios.get('http://127.0.0.1:8000/load_data/amit'); // your backend API
         console.log("res.data",res.data)
         return res.data; // should be an array of messages
-      } catch (err: any) {
-        return thunkAPI.rejectWithValue(err.message || 'Failed to load messages');
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'Failed to load messages';
+        return thunkAPI.rejectWithValue(errorMessage);
       }
 
 })
@@ -46,8 +47,9 @@ MessageState,MessageState,
           });
           console.log(response.data)
           return {"role":"model","parts":response.data};
-    }catch(err:any){
-        return thunkAPI.rejectWithValue(err.message||"api error")
+    }catch(err: unknown){
+        const errorMessage = err instanceof Error ? err.message : 'api error';
+        return thunkAPI.rejectWithValue(errorMessage);
     }
 })
 const chatSlice=createSlice({
