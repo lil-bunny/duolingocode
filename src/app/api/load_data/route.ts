@@ -35,7 +35,7 @@ export async function GET(req: Request) {
     }
 
     const response = await axios.get(
-      `https://1661-150-129-64-107.ngrok-free.app/load_data/${uid}`,
+      `https://duolingocodebackend.onrender.com/load_data/${uid}`,
       {
         headers: {
           Accept: 'application/json',

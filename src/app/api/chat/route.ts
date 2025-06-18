@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     }
 
     const response = await axios.post(
-      'https://1661-150-129-64-107.ngrok-free.app/chat',
+      'https://duolingocodebackend.onrender.com/chat',
       { uid, message },
       { headers: { 'Content-Type': 'application/json' } }
     );

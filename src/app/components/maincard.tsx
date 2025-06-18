@@ -31,9 +31,9 @@ const QuestionCard = ({ msg, setMsg, handleSendMessage, isLoading }: {
           </div>
         </div>
         <h1 className="text-5xl font-bold text-green-600 mb-3">
-          Learn to solve any DSA problem
+          Learn to solve any Leetcode/Hackerrank problem
         </h1>
-        <p className="text-green-700 text-xl font-medium">Master algorithms and data structures with AI-powered guidance</p>
+        <p className="text-green-700 text-xl font-medium">Master any dsa problems with personalized guidance</p>
       </div>
       
       <div className="flex flex-col w-[80vh] h-[30vh] p-8 rounded-2xl bg-white shadow-xl border-4 border-green-300 relative">
