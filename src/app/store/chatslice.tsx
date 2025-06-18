@@ -17,17 +17,21 @@ MessageState[],void,{rejectValue:string}
 >
 ('chat/loadMessageAsync',async(_,thunkAPI)=>{
     try {
+        const pathSegments = window.location.pathname.split("/");
+        const uid = pathSegments[1]; 
         // const res = await axios.get('https://1f4f-150-129-64-107.ngrok-free.app/load_data/amit', {
         //     headers: {
         //       Accept: 'application/json',
         //     },
         //   }); // yo
-        const res = await axios.get('/api/load_data');
+        // const res = await axios.get('/api/load_data');
+        const res = await axios.get(`/api/load_data?uid=${uid}`);
+
 
           // 
           // ur backend API
           
-        console.log(res.data)
+        // console.log(res.data)
         return res.data; // should be an array of messages
       } catch (err: unknown) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to load messages';
@@ -40,17 +44,18 @@ export const addMessageAsync=createAsyncThunk<
 MessageState,MessageState,
 {rejectValue:string}>("chat/addMessageAsync",async (message,thunkAPI)=>{
     try{
-
-        console.log({
-            uid: 'amit',
-            message: message.parts,
-          })
+        const pathSegments = window.location.pathname.split("/");
+        const uid = pathSegments[1]; 
+        // console.log({
+        //     uid: uid,
+        //     message: message.parts,
+        //   })
 
         const response = await axios.post('/api/chat', {
-            uid: 'amit',
+            uid: uid,
             message: message.parts,
           });
-          console.log('bal1',response.data)
+        //   console.log('bal1',response.data)
           return {"role":"model","parts":response.data};
     }catch(err: unknown){
         const errorMessage = err instanceof Error ? err.message : 'api error';
@@ -72,7 +77,7 @@ const chatSlice=createSlice({
              
               })
               .addCase(loadMessageAsync.fulfilled, (state, action) => {
-                console.log("babr badul", action.payload)
+                // console.log("babr badul", action.payload)
                 state.messages = action.payload;
               })
               .addCase(loadMessageAsync.rejected, () => {
@@ -83,14 +88,14 @@ const chatSlice=createSlice({
         
         })
         .addCase(addMessageAsync.fulfilled, (state, action: PayloadAction<MessageState>) => {
-            console.log("balerr state",action.payload.parts)
+            // console.log("balerr state",action.payload.parts)
 
             // console.log(teacherText);
           
-            state.messages.push({"role":"model","parts":JSON.parse(JSON.parse(action.payload.parts))['teacher_text']})
+            state.messages =[{"role":"model","parts":action.payload.parts}]
             
-            console.log("baler state",state.messages)
-            console.log(state.messages)
+            // console.log("baler state",state.messages)
+            // console.log(state.messages)
         })
         .addCase(addMessageAsync.rejected, () => {
 
