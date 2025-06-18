@@ -14,8 +14,8 @@ export async function GET() {
     );
 
     return NextResponse.json(response.data);
-  } catch (error: any) {
-    console.error('Load Data Proxy Error:', error.message);
-    return NextResponse.json({ error: error.message || 'Proxy Error' }, { status: 500 });
+  } catch (error: unknown) {
+    console.error('Load Data Proxy Error:', error instanceof Error ? error.message : 'Unknown error');
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Proxy Error' }, { status: 500 });
   }
 }
