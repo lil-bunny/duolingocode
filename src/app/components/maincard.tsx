@@ -80,6 +80,7 @@ type MainCardProps = {
 const MainCard: React.FC<MainCardProps> = ({ uid }) => {
   const dispatch = useDispatch<AppDispatch>();
   const [msg, setMsg] = useState('');
+  console.log(uid)
   const [isLoading, setIsLoading] = useState(false);
   const { messages } = useSelector((state: RootState) => state.chat);
   
