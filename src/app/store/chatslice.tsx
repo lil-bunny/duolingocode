@@ -63,25 +63,25 @@ const chatSlice=createSlice({
 
     },extraReducers:(builder)=>{
         builder
-              .addCase(loadMessageAsync.pending, (state) => {
+              .addCase(loadMessageAsync.pending, () => {
              
               })
               .addCase(loadMessageAsync.fulfilled, (state, action) => {
          
                 state.messages = action.payload;
               })
-              .addCase(loadMessageAsync.rejected, (state, action) => {
+              .addCase(loadMessageAsync.rejected, () => {
             
               })
   
-        .addCase(addMessageAsync.pending, (state) => {
+        .addCase(addMessageAsync.pending, () => {
         
         })
         .addCase(addMessageAsync.fulfilled, (state, action: PayloadAction<MessageState>) => {
             console.log("balerr state",action.payload.parts)
             // const match = action.payload.parts.match(/"teacher_text"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/);
             const res=action.payload.parts
-            var final_res=''
+            let final_res=''
             try {
                 const parsed = JSON.parse(JSON.parse(res));
                 console.log('dadur=----',typeof(parsed));
@@ -95,7 +95,7 @@ const chatSlice=createSlice({
             console.log("baler state",state.messages)
             console.log(state.messages)
         })
-        .addCase(addMessageAsync.rejected, (state, action) => {
+        .addCase(addMessageAsync.rejected, () => {
 
         });
     }
