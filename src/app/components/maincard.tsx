@@ -52,7 +52,7 @@ const MainCard: React.FC = () => {
         </div>
         {/* Fills remaining space */}
         <p className='p-5 mt-12'>
-          {messages.length == 0 ? 'Enter the problem statement below ' : messages[messages.length - 1]?.role == "model" ? messages[messages.length - 1]?.parts : messages[messages.length - 1]?.parts}
+          {messages.length == 0 ? 'Enter the problem statement below ' : messages[messages.length - 1]?.role == "model" ? messages[messages.length - 1]?.parts : messages[messages.length - 2]?.parts}
         </p>
         <div className="flex-auto bg-red" />
 
