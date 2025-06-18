@@ -43,14 +43,14 @@ const MainCard: React.FC = () => {
 
   return (
     <div className="flex h-screen items-center justify-center">
-      <div className='flex flex-col h-[70vh] w-[70vh] bg-white overflow-visible border rounded-lg shadow-lg'>
-        <div className='p-4'>
-          <Avatar className='bg-white h-16 rounded-full w-16'>
-            <AvatarImage src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJhyOBkI9m73a63Ayf9uQFQdDrLA5aTSJahQ&s" className='h-full w-full object-cover' />
-          </Avatar>
+      <div className='flex flex-col h-[70vh] w-[70vh] bg-white overflow-visible border rounded-lg shadow-lg relative'>
+        <div className='absolute top-4 left-4'>
+          <div className='bg-white h-10 w-10 rounded-full overflow-hidden'>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJhyOBkI9m73a63Ayf9uQFQdDrLA5aTSJahQ&s" className='h-full w-full object-cover' alt="avatar" />
+          </div>
         </div>
         {/* Fills remaining space */}
-        <p className='p-2'>
+        <p className='p-2 mt-12'>
           {messages.length == 0 ? 'Enter the problem statement below ' : messages.at(messages.length - 1)?.role == "model" ? messages.at(messages.length - 1)?.parts : messages.at(messages.length - 2)?.parts}
         </p>
         <div className="flex-auto bg-red" />
