@@ -17,8 +17,17 @@ MessageState[],void,{rejectValue:string}
 >
 ('chat/loadMessageAsync',async(_,thunkAPI)=>{
     try {
-        const res = await axios.get('https://10bd-150-129-64-107.ngrok-free.app/load_data/amit'); // your backend API
-        console.log("res.data",res.data)
+        // const res = await axios.get('https://1f4f-150-129-64-107.ngrok-free.app/load_data/amit', {
+        //     headers: {
+        //       Accept: 'application/json',
+        //     },
+        //   }); // yo
+        const res = await axios.get('/api/load_data');
+
+          // 
+          // ur backend API
+          
+        console.log(res.data)
         return res.data; // should be an array of messages
       } catch (err: unknown) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to load messages';
@@ -31,21 +40,17 @@ export const addMessageAsync=createAsyncThunk<
 MessageState,MessageState,
 {rejectValue:string}>("chat/addMessageAsync",async (message,thunkAPI)=>{
     try{
-        // const res = await axios.post('/api/messages', message); // your backend API
-        // return res.data;
+
         console.log({
             uid: 'amit',
             message: message.parts,
           })
-        const response = await axios.post('https://10bd-150-129-64-107.ngrok-free.app/chat', {
+
+        const response = await axios.post('/api/chat', {
             uid: 'amit',
             message: message.parts,
-          }, {
-            headers: {
-              'Content-Type': 'application/json'
-            }
           });
-          console.log(response.data)
+          console.log('bal1',response.data)
           return {"role":"model","parts":response.data};
     }catch(err: unknown){
         const errorMessage = err instanceof Error ? err.message : 'api error';
@@ -67,7 +72,7 @@ const chatSlice=createSlice({
              
               })
               .addCase(loadMessageAsync.fulfilled, (state, action) => {
-         
+                console.log("babr badul", action.payload)
                 state.messages = action.payload;
               })
               .addCase(loadMessageAsync.rejected, () => {
@@ -79,19 +84,19 @@ const chatSlice=createSlice({
         })
         .addCase(addMessageAsync.fulfilled, (state, action: PayloadAction<MessageState>) => {
             console.log("balerr state",action.payload.parts)
-            // const match = action.payload.parts.match(/"teacher_text"\s*:\s*"([^"]*(?:\\.[^"]*)*)"/);
             const res=action.payload.parts
             let final_res=''
             try {
-                const parsed = JSON.parse(JSON.parse(res));
-                console.log('dadur=----',typeof(parsed));
-                final_res=parsed.teacher_text
-              } catch (e) {
+                const parsed:any = JSON.parse(res);
+                final_res=parsed['teacher_text']
+
+            } catch (e) {
                 console.error("Invalid JSON", e);
               }
             // console.log(teacherText);
-
-            state.messages.push({"role":"model","parts":final_res})
+          
+            state.messages.push({"role":"model","parts":JSON.parse(JSON.parse(action.payload.parts))['teacher_text']})
+            
             console.log("baler state",state.messages)
             console.log(state.messages)
         })

@@ -31,6 +31,8 @@ const MainCard: React.FC = () => {
     
     setIsLoading(true);
     try {
+      // dispatch(addMessage({ role: 'user', parts: msg }));  // 👈 add user's message to state
+
       await dispatch(addMessageAsync({ role: 'user', parts: msg }));
       setMsg(''); // Clear the text box
     } catch (error) {
@@ -50,7 +52,7 @@ const MainCard: React.FC = () => {
         </div>
         {/* Fills remaining space */}
         <p className='p-5 mt-12'>
-          {messages.length == 0 ? 'Enter the problem statement below ' : messages.at(messages.length - 1)?.role == "model" ? messages.at(messages.length - 1)?.parts : messages.at(messages.length - 2)?.parts}
+          {messages.length == 0 ? 'Enter the problem statement below ' : messages[messages.length - 1]?.role == "model" ? messages[messages.length - 1]?.parts : messages[messages.length - 1]?.parts}
         </p>
         <div className="flex-auto bg-red" />
 
