@@ -84,15 +84,7 @@ const chatSlice=createSlice({
         })
         .addCase(addMessageAsync.fulfilled, (state, action: PayloadAction<MessageState>) => {
             console.log("balerr state",action.payload.parts)
-            const res=action.payload.parts
-            let final_res=''
-            try {
-                const parsed:any = JSON.parse(res);
-                final_res=parsed['teacher_text']
 
-            } catch (e) {
-                console.error("Invalid JSON", e);
-              }
             // console.log(teacherText);
           
             state.messages.push({"role":"model","parts":JSON.parse(JSON.parse(action.payload.parts))['teacher_text']})
